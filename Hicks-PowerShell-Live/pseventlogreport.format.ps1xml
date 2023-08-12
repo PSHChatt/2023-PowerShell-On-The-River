@@ -1,0 +1,164 @@
+<!--
+Format type data generated 08/11/2023 14:50:19 by THINKX1-JH\Jeff
+
+This file was created using the New-PSFormatXML command that is part
+of the PSScriptTools module.
+
+https://github.com/jdhitsolutions/PSScriptTools
+-->
+<Configuration>
+  <ViewDefinitions>
+    <View>
+      <!--Created 08/11/2023 14:50:19 by THINKX1-JH\Jeff-->
+      <Name>default</Name>
+      <ViewSelectedBy>
+        <TypeName>psEventLogReport</TypeName>
+      </ViewSelectedBy>
+      <GroupBy>
+        <!--
+            You can also use a scriptblock to define a custom property name.
+            You must have a Label tag.
+            <ScriptBlock>$_.machinename.ToUpper()</ScriptBlock>
+            <Label>Computername</Label>
+
+            Use <Label> to set the displayed value.
+-->
+        <ScriptBlock>"$([char]27)[38;5;213m{0}$([char]27)[0m [$([char]27)[3;38;5;51m{1}$([char]27)[0m]" -f $_.Logname,$_.Computername</ScriptBlock>
+        <Label>EventLog</Label>
+      </GroupBy>
+      <TableControl>
+        <!--Delete the AutoSize node if you want to use the defined widths.-->
+        <AutoSize />
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Source</Label>
+            <Width>9</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Total</Label>
+            <Width>8</Width>
+            <Alignment>right</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Error</Label>
+            <Width>10</Width>
+            <Alignment>right</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Warning</Label>
+            <Width>10</Width>
+            <Alignment>right</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Info</Label>
+            <Width>10</Width>
+            <Alignment>right</Alignment>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <!--
+            By default the entries use property names, but you can replace them with scriptblocks.
+            <ScriptBlock>$_.foo /1mb -as [int]</ScriptBlock>
+-->
+              <TableColumnItem>
+                <PropertyName>Source</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Total</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>
+                if ($host.name -match "code|console" -AND $_.Error -gt 0) {
+                  "$([char]27)[38;5;198m$($_.error)$([char]27)[0m"
+                }
+                else {
+                  $_.Error
+                }
+                </ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>
+                if ($host.name -match "code|console" -AND $_.Warning -gt 0) {
+                  "$([char]27)[38;5;228m$($_.warning)$([char]27)[0m"
+                }
+                else {
+                  $_.Warning
+                }
+                </ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Information</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <!--Created 08/11/2023 15:05:11 by THINKX1-JH\Jeff
+      $r[0] | New-PSFormatXML -Path .\pseventlogreport.format.ps1xml -Append -GroupBy LogName -Properties Source,Error,Warning,Information -FormatType List
+      -->
+      <Name>default</Name>
+      <ViewSelectedBy>
+        <TypeName>psEventLogReport</TypeName>
+      </ViewSelectedBy>
+      <GroupBy>
+        <!--
+            You can also use a scriptblock to define a custom property name.
+            You must have a Label tag.
+            <ScriptBlock>$_.machinename.ToUpper()</ScriptBlock>
+            <Label>Computername</Label>
+
+            Use <Label> to set the displayed value.
+-->
+        <ScriptBlock>"$([char]27)[3;38;5;213m{0}$([char]27)[0m" -f $_.LogName</ScriptBlock>
+        <Label>Log</Label>
+      </GroupBy>
+      <ListControl>
+        <ListEntries>
+          <ListEntry>
+            <ListItems>
+              <!--
+            By default the entries use property names, but you can replace them with scriptblocks.
+            <ScriptBlock>$_.foo /1mb -as [int]</ScriptBlock>
+-->
+              <ListItem>
+                <Label>Source</Label>
+                <ScriptBlock>"{0} ({1})" -f $_.Source,$_.Total</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Error</Label>
+                <ScriptBlock>
+                if ($host.name -match "code|console" -AND $_.Error -gt 0) {
+                  "$([char]27)[38;5;198m$($_.error)$([char]27)[0m"
+                }
+                else {
+                  $_.Error
+                }
+                </ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Warning</Label>
+                <ScriptBlock>
+                if ($host.name -match "code|console" -AND $_.Warning -gt 0) {
+                  "$([char]27)[38;5;228m$($_.warning)$([char]27)[0m"
+                }
+                else {
+                  $_.Warning
+                }
+              </ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Information</Label>
+                <PropertyName>Information</PropertyName>
+              </ListItem>
+            </ListItems>
+          </ListEntry>
+        </ListEntries>
+      </ListControl>
+    </View>
+  </ViewDefinitions>
+</Configuration>
