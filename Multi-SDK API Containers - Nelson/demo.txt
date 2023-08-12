@@ -1,0 +1,53 @@
+# what version?
+https://hub.docker.com/_/alpine
+
+# pull it to save time
+sudo docker pull alpine:latest
+
+# create alpine container with tag "1"
+sudo docker run -it alpine:1
+
+# look at the size
+docker images
+
+# need to run and go in and out a lot? -d deamonize
+sudo docker run -it -d alpine:3
+
+apk add python3
+
+apk add py3-pip
+
+apk add powershell
+
+apk add terraform
+
+apk add ansible
+
+# get the container ID
+sudo docker ps -a
+
+sudo docker commit eacdf78d1bde my-alpine
+
+sudo docker images
+
+
+# am in a container or not?
+uname -a
+
+# exit a container - stop it
+CTL-D or exit
+
+# exit but keep running - deamonize the container
+CTL-P CTL-Q
+
+# to enter container
+docker exec -ti CONTAINER_ID bash
+docker attach CONTAINER_ID
+
+# Dockerfiles
+https://github.com/PowerShell/PowerShell-Docker/tree/master/release
+
+# Pull the official MS container
+docker pull mcr.microsoft.com/powershell:latest
+
+
